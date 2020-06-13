@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<trades>
+  <trade>
+    <ticker>MSFT</ticker>
+    <tradeDate>2018-01-02T09:00:00</tradeDate>
+    <action>Buy</action>
+    <quantity>100</quantity>
+    <price>85.95</price>
+    <cost>8595.00</cost>
+  </trade>
+  <trade>
+    <ticker>GOOG</ticker>
+    <tradeDate>2018-01-02T09:00:00</tradeDate>
+    <action>Buy</action>
+    <quantity>50</quantity>
+    <price>1065.00</price>
+    <cost>53250.00</cost>
+  </trade>
+  <trade>
+    <ticker>MSFT</ticker>
+    <tradeDate>2018-01-10T09:00:00</tradeDate>
+    <action>Buy</action>
+    <quantity>150</quantity>
+    <price>87.82</price>
+    <cost>13173.00</cost>
+  </trade>
+</trades>
