@@ -3,13 +3,14 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using Farallon.Constants;
+using Farallon.Interfaces;
 using Farallon.Properties;
 
 namespace Farallon.CustomControls
 {
     public partial class BaseForm : Form
     {
-        public Portfolio Portfolio { get; private set; }
+        public IPortfolio Portfolio { get; private set; }
 
         public BaseForm()
         {

@@ -24,4 +24,20 @@
     <price>87.82</price>
     <cost>13173.00</cost>
   </trade>
+  <trade>
+    <ticker>TSLA</ticker>
+    <tradeDate>2018-09-03T09:00:00</tradeDate>
+    <action>Buy</action>
+    <quantity>150</quantity>
+    <price>327.17</price>
+    <cost>49075.50</cost>
+  </trade>
+  <trade>
+    <ticker>TSLA</ticker>
+    <tradeDate>2019-05-31T09:00:00</tradeDate>
+    <action>Buy</action>
+    <quantity>200</quantity>
+    <price>185.16</price>
+    <cost>37032.00</cost>
+  </trade>
 </trades>

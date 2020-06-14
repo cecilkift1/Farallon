@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 
 namespace Farallon.AlphaVantage
 {
@@ -10,8 +11,17 @@ namespace Farallon.AlphaVantage
         public static AlphaVantageQuote FetchGlobalQuote(string ticker)
         {
             var contentJson = AlphaVantageBaseConnection.GetDownloadString("GLOBAL_QUOTE", ticker);
-            var currentStockQuote = JsonConvert.DeserializeObject<AlphaVantageQuote>(contentJson);
-            return currentStockQuote;
+            try
+            {
+                var currentStockQuote = JsonConvert.DeserializeObject<AlphaVantageQuote>(contentJson);
+                return currentStockQuote;
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine($"Failed to deserialize the quote for: {ticker}, {e.Message}");
+            }
+
+            return null;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Farallon.Enums;
 using Farallon.Interfaces;
 
@@ -35,7 +36,8 @@ namespace Farallon
             {
                 var reader = new System.Xml.Serialization.XmlSerializer(typeof(Trades));
                 using var file = new System.IO.StreamReader(xmlFilename);
-                Trades = (Trades)reader.Deserialize(file);
+                var trades = (Trades)reader.Deserialize(file);
+                Trades.Trade = trades.Trade.OrderBy(t => t.TradeDate).ToList();
                 ProfitAndLoss.Trades = Trades;
                 file.Close();
             }
