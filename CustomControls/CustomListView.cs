@@ -1,16 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Linq;
 using System.Windows.Forms;
+using Farallon.Enums;
+using Farallon.Interfaces;
 
 namespace Farallon.CustomControls
 {
     public partial class CustomListView : ListView
     {
         private bool _resizing;
+        private IPortfolio _portfolio;
+
         public CustomListView()
         {
             InitializeComponent();
+
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
             SetStyle(ControlStyles.EnableNotifyMessage, true);
 
@@ -19,14 +26,19 @@ namespace Farallon.CustomControls
             OwnerDraw = true;
         }
 
-        protected override void OnNotifyMessage(Message m)
+        public PortfolioViewType PortfolioViewType { get; set; } = PortfolioViewType.Trades;
+
+        public IPortfolio Portfolio
         {
-            //Filter out the WM_ERASEBKGND message
-            if (m.Msg != 0x14)
+            get => _portfolio;
+            set
             {
-                base.OnNotifyMessage(m);
+                _portfolio = value;
+
+                Bind();
             }
         }
+
         public new void EndUpdate()
         {
             base.EndUpdate();
@@ -37,6 +49,93 @@ namespace Farallon.CustomControls
         {
             get => Color.RoyalBlue;
             set { }
+        }
+
+        private void Bind()
+        {
+            try
+            {
+                BeginUpdate();
+                Clear();
+                CreateColumns();
+                CreateRows();
+            }
+            finally
+            {
+                EndUpdate();
+            }
+        }
+
+        private void CreateColumns()
+        {
+            var columns = Portfolio?.Columns(PortfolioViewType) ?? new List<IColumn>();
+
+            foreach (var columnHeader in columns.Select(column => new ColumnHeader
+            {
+                Text = column.Text,
+                TextAlign = column.TextAlign
+            }))
+            {
+                Columns.Add(columnHeader);
+            }
+        }
+
+        private void CreateRows()
+        {
+            var rows = Portfolio?.Rows(PortfolioViewType) ?? new List<IRow>();
+
+            foreach (var row in rows)
+            {
+                ListViewItem listViewItem = null;
+                foreach (var rowValue in row.Values)
+                {
+                    if (listViewItem == null)
+                    {
+                        listViewItem = new ListViewItem
+                        {
+                            Text = rowValue
+                        };
+
+                        Items.Add(listViewItem);
+                    }
+                    else
+                    {
+                        listViewItem.SubItems.Add(rowValue);
+                    }
+                }
+            }
+        }
+
+        private void PaintItemBackground(ListViewItemStates states, Graphics graphics, Rectangle bounds)
+        {
+            var backgroundBrush = Brushes.Gainsboro;
+            if (states == ListViewItemStates.Selected ||
+                states == ListViewItemStates.Focused ||
+                states == ListViewItemStates.Hot)
+            {
+                backgroundBrush = Brushes.White;
+            }
+
+            graphics.FillRectangle(backgroundBrush, bounds);
+        }
+
+        private void ApplyLayout()
+        {
+            var columnWidth = ClientRectangle.Width / Math.Max(Columns.Count, 1);
+
+            foreach (ColumnHeader column in Columns)
+            {
+                column.Width = columnWidth;
+            }
+        }
+
+        protected override void OnNotifyMessage(Message m)
+        {
+            //Filter out the WM_ERASEBKGND message
+            if (m.Msg != 0x14)
+            {
+                base.OnNotifyMessage(m);
+            }
         }
 
         protected override void OnDrawColumnHeader(DrawListViewColumnHeaderEventArgs e)
@@ -75,20 +174,6 @@ namespace Farallon.CustomControls
             e.Graphics.DrawLine(Pens.LightGray, e.Bounds.Left, e.Bounds.Bottom - 1, e.Bounds.Right, e.Bounds.Bottom - 1);
         }
 
-        private void PaintItemBackground(ListViewItemStates states, Graphics graphics, Rectangle bounds)
-        {
-            var backgroundBrush = Brushes.Gainsboro;
-            if (states == ListViewItemStates.Selected ||
-                states == ListViewItemStates.Focused ||
-                states == ListViewItemStates.Hot)
-            {
-                backgroundBrush = Brushes.White;
-            }
-
-            graphics.FillRectangle(backgroundBrush, bounds);
-        }
-
-
         protected override void OnSizeChanged(EventArgs e)
         {
             if (!_resizing)
@@ -101,15 +186,6 @@ namespace Farallon.CustomControls
             _resizing = false;
         }
 
-        private void ApplyLayout()
-        {
-            var columnWidth = ClientRectangle.Width / Columns.Count;
-
-            foreach (ColumnHeader column in Columns)
-            {
-                column.Width = columnWidth;
-            }
-        }
         private static StringFormat StringFormat(HorizontalAlignment alignment)
         {
             var stringFormat = new StringFormat

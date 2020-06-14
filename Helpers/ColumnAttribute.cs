@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Farallon
+namespace Farallon.Helpers
 {
-    public class TradeAttribute : Attribute
+    public class ColumnAttribute : Attribute
     {
         public HorizontalAlignment HorizontalAlignment { get; set; }
         public string ValueStringFormat { get; set; }

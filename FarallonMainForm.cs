@@ -30,7 +30,8 @@ namespace Farallon
 
         private void FarallonMainForm_Load(object sender, EventArgs e)
         {
-            LoadPortfolio(listViewPortfolio);
+            listViewPortfolio.Portfolio = Portfolio;
+            listViewProfitAndLoss.Portfolio = Portfolio;
         }
     }
 }

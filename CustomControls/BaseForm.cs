@@ -9,22 +9,31 @@ namespace Farallon.CustomControls
 {
     public partial class BaseForm : Form
     {
-        private Portfolio _portfolio;
+        public Portfolio Portfolio { get; private set; }
+
         public BaseForm()
         {
             InitializeComponent();
             SetStyle(ControlStyles.ResizeRedraw, true);
         }
 
-        protected void LoadPortfolio(CustomListView listView)
+        private string SampleXmlFileDataPath()
         {
-            if (_portfolio == null)
-            {
-                _portfolio = new Portfolio();
-                var path = Path.GetDirectoryName(Application.ExecutablePath) ?? string.Empty;
-                _portfolio.Initialize(Path.Combine(path, @"TradesSampleData\Portfolio.xml"), listView);
-            }
+            var path = Path.GetDirectoryName(Application.ExecutablePath) ?? string.Empty;
+            return Path.Combine(path, @"TradesSampleData\Portfolio.xml");
         }
+
+        private void InitializePortfolio()
+        {
+            Portfolio ??= new Portfolio(SampleXmlFileDataPath());
+        }
+
+        protected override void OnHandleCreated(EventArgs e)
+        {
+            base.OnHandleCreated(e);
+            InitializePortfolio();
+        }
+
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);

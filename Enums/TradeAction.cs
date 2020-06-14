@@ -1,4 +1,4 @@
-﻿namespace Farallon
+﻿namespace Farallon.Enums
 {
     public enum TradeAction
     {
