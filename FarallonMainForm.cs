@@ -1,8 +1,9 @@
 ﻿using System;
-using System.Net;
+using System.Windows.Forms;
 using Farallon.AlphaVantage;
+using Farallon.Constants;
 using Farallon.CustomControls;
-using Newtonsoft.Json;
+using Farallon.Helpers;
 
 namespace Farallon
 {
@@ -13,25 +14,39 @@ namespace Farallon
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            var symbol = "MSFT";
-            //  var apiKey = "2DLJXQV5J55J3NG9"; // retrieve your api key from
-
-            using var client = new WebClient();
-
-            client.Headers.Add("User-Agent", "C# console program");
-            var url = $"https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={symbol}&apikey=demo";
-            var contentJson = client.DownloadString(url);
-
-            var currentStockQuote = JsonConvert.DeserializeObject<AlphaVantageQuote>(contentJson);
-            System.Diagnostics.Debug.WriteLine(currentStockQuote);
-        }
-
         private void FarallonMainForm_Load(object sender, EventArgs e)
         {
             listViewPortfolio.Portfolio = Portfolio;
             listViewProfitAndLoss.Portfolio = Portfolio;
+        }
+
+        private void buttonQuote_Click(object sender, EventArgs e)
+        {
+            PerformQuoteSearch(textBoxQuote.Text);
+        }
+
+        private void PerformQuoteSearch(string ticker)
+        { 
+            var currentStockQuote = AlphaVantageQuote.FetchGlobalQuote(ticker);
+            if (currentStockQuote?.AlphaVantageGlobalQuote == null)
+            {
+                labelQuoteTicker.Text = $"Ticker: Invalid ticker: {ticker}";
+                labelQuoteData.Text = string.Empty;
+            }
+            else
+            {
+                labelQuoteTicker.Text = $"Ticker: {currentStockQuote.AlphaVantageGlobalQuote.Symbol}"; 
+                labelQuoteData.Text = $"Quote: {string.Format(FormattingConstants.CurrencyFormat, ConversionHelper.ConvertToDecimal(currentStockQuote.AlphaVantageGlobalQuote.Price))}";
+            }
+        }
+
+        private void textBoxQuote_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                SelectNextControl((Control) sender, true, true, true, true);
+                PerformQuoteSearch(textBoxQuote.Text);
+            }
         }
     }
 }

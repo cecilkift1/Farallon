@@ -6,5 +6,7 @@ namespace Farallon.Interfaces
     {
         string Text { get; }
         HorizontalAlignment TextAlign { get; }
+        string ValueStringFormat { get; }
+        int MinimumWidth { get; }
     }
 }

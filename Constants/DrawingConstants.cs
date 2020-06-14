@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using System.Drawing.Printing;
+﻿using System.Drawing.Printing;
 
 namespace Farallon.Constants
 {

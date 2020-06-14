@@ -70,10 +70,11 @@ namespace Farallon.CustomControls
         {
             var columns = Portfolio?.Columns(PortfolioViewType) ?? new List<IColumn>();
 
-            foreach (var columnHeader in columns.Select(column => new ColumnHeader
+            foreach (var columnHeader in columns.Select(column => new CustomColumnHeader
             {
                 Text = column.Text,
-                TextAlign = column.TextAlign
+                TextAlign = column.TextAlign,
+                MinimumWidth = column.MinimumWidth
             }))
             {
                 Columns.Add(columnHeader);
@@ -106,7 +107,7 @@ namespace Farallon.CustomControls
             }
         }
 
-        private void PaintItemBackground(ListViewItemStates states, Graphics graphics, Rectangle bounds)
+        private static void PaintItemBackground(ListViewItemStates states, Graphics graphics, Rectangle bounds)
         {
             var backgroundBrush = Brushes.Gainsboro;
             if (states == ListViewItemStates.Selected ||
@@ -119,13 +120,25 @@ namespace Farallon.CustomControls
             graphics.FillRectangle(backgroundBrush, bounds);
         }
 
+        private int ColumnsCountWithMinimumWidth()
+        {
+            return Columns.Cast<CustomColumnHeader>().Count(columnHeader => columnHeader.MinimumWidth != 0);
+        }
+
+        private int ColumnsMinimumWidth()
+        {
+            return Columns.Cast<CustomColumnHeader>().Sum(columnHeader => columnHeader.MinimumWidth);
+        }
+
         private void ApplyLayout()
         {
-            var columnWidth = ClientRectangle.Width / Math.Max(Columns.Count, 1);
+            var columnsCountWithMinimumWidth = ColumnsCountWithMinimumWidth();
+            var defaultColumnWidth = (ClientRectangle.Width - ColumnsMinimumWidth()) / 
+                                     Math.Max(Columns.Count - columnsCountWithMinimumWidth, 1);
 
-            foreach (ColumnHeader column in Columns)
+            foreach (CustomColumnHeader column in Columns)
             {
-                column.Width = columnWidth;
+                column.Width = Math.Max(defaultColumnWidth, column.MinimumWidth);
             }
         }
 

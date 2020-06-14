@@ -15,6 +15,7 @@ namespace Farallon.CustomControls
         {
             InitializeComponent();
             SetStyle(ControlStyles.ResizeRedraw, true);
+            Padding = new Padding(0, DrawingConstants.MainFormHeaderHeight, 0, 0);
         }
 
         private string SampleXmlFileDataPath()

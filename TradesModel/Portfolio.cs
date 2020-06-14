@@ -6,7 +6,7 @@ using Farallon.Interfaces;
 namespace Farallon
 {
     public class Portfolio : IPortfolio
-    {
+    { 
         private ProfitAndLoss ProfitAndLoss { get; } = new ProfitAndLoss();
         private Trades Trades { get; set; } = new Trades();
 
@@ -28,7 +28,6 @@ namespace Farallon
                 Trades.Rows() :
                 ProfitAndLoss.Rows();
         }
-
 
         private void LoadFromXmlFile(string xmlFilename)
         {

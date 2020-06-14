@@ -1,50 +1,30 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Windows.Forms;
 using System.Xml.Serialization;
 using Farallon.Constants;
 using Farallon.Enums;
-using Farallon.Helpers;
 
 namespace Farallon
 {
     [XmlRoot(ElementName = "trade")]
     public class Trade
     {
-        [XmlElement("ticker"), DisplayName("Ticker")]
-        [Column(
-            HorizontalAlignment = HorizontalAlignment.Left, 
-            ValueStringFormat = FormattingConstants.DefaultFormat)]
+        [XmlElement("ticker"), DisplayName(TradeColumnNames.ColumnNameTicker)]
         public string Ticker { get; set; }
 
-        [XmlElement("tradeDate"), DisplayName("Trade Date")]
-        [Column(
-            HorizontalAlignment = HorizontalAlignment.Center, 
-            ValueStringFormat = FormattingConstants.DateFormat)] 
+        [XmlElement("tradeDate"), DisplayName(TradeColumnNames.ColumnNameTradeDate)] 
         public DateTime TradeDate { get; set; }
 
-        [XmlElement("quantity"), DisplayName("Quantity")]
-        [Column(
-            HorizontalAlignment = HorizontalAlignment.Right, 
-            ValueStringFormat = FormattingConstants.IntegerFormat)]
+        [XmlElement("quantity"), DisplayName(TradeColumnNames.ColumnNameQuantity)]
         public int Quantity { get; set; }
 
-        [XmlElement("action", typeof(TradeAction)), DisplayName("Action")]
-        [Column(
-            HorizontalAlignment = HorizontalAlignment.Center, 
-            ValueStringFormat = FormattingConstants.DefaultFormat)]
+        [XmlElement("action", typeof(TradeAction)), DisplayName(TradeColumnNames.ColumnNameAction)]
         public TradeAction Action { get; set; }
 
-        [XmlElement("price"), DisplayName("Price")]
-        [Column(
-            HorizontalAlignment = HorizontalAlignment.Right, 
-            ValueStringFormat = FormattingConstants.CurrencyFormat)]
+        [XmlElement("price"), DisplayName(TradeColumnNames.ColumnNamePrice)]
         public decimal Price { get; set; }
 
-        [XmlElement("cost"), DisplayName("Cost")]
-        [Column(
-            HorizontalAlignment = HorizontalAlignment.Right, 
-            ValueStringFormat = FormattingConstants.CurrencyFormat)]
+        [XmlElement("cost"), DisplayName(TradeColumnNames.ColumnNameCost)]
         public decimal Cost { get; set; }
     }
 }
