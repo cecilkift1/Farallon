@@ -9,7 +9,7 @@ namespace Farallon
     public class Portfolio : IPortfolio
     { 
         private ProfitAndLoss ProfitAndLoss { get; } = new ProfitAndLoss();
-        private Trades Trades { get; set; } = new Trades();
+        private Trades Trades { get; } = new Trades();
 
         public Portfolio(string xmlFilename)
         {

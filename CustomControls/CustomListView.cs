@@ -160,6 +160,7 @@ namespace Farallon.CustomControls
         protected override void OnDrawColumnHeader(DrawListViewColumnHeaderEventArgs e)
         {
             e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
+
             // Fill the background
             e.Graphics.FillRectangle(Brushes.Gainsboro, e.Bounds);
             // Draw a top line
@@ -170,8 +171,7 @@ namespace Farallon.CustomControls
             using var stringFormat = StringFormat(e.Header.TextAlign);
             using var headerFont = new Font(Font.Name, Font.Size, FontStyle.Bold);
             var textBounds = e.Bounds;
-            textBounds.Inflate(e.ColumnIndex == 0 ? 0 : -5, 0);
-            e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
+            textBounds.Inflate(e.ColumnIndex == 0 ? 0 : -5, 0); 
             e.Graphics.DrawString(e.Header.Text, headerFont, new SolidBrush(ForeColor), textBounds, stringFormat);
         }
 
