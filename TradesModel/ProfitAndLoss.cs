@@ -8,7 +8,7 @@ using Farallon.Interfaces;
 
 namespace Farallon
 {
-    public class ProfitAndLoss : Table
+    public class ProfitAndLoss : ColumnsCollection
     {
         private Trades _trades;
         private readonly Equities _equities = new Equities();

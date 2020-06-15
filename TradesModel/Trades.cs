@@ -10,7 +10,7 @@ using Farallon.Interfaces;
 namespace Farallon
 {
     [XmlRoot(ElementName = "trades")]
-    public class Trades : Table
+    public class Trades : ColumnsCollection
     {
         [XmlElement(ElementName = "trade")]
         public List<Trade> Trade { get; set; } = new List<Trade>();

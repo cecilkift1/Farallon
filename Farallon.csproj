@@ -109,7 +109,7 @@
     <Compile Include="TradesModel\ProfitAndLoss.cs" />
     <Compile Include="TradesModel\Row.cs" />
     <Compile Include="TradesModel\Equity.cs" />
-    <Compile Include="TradesModel\Table.cs" />
+    <Compile Include="TradesModel\ColumnsCollection.cs" />
     <Compile Include="TradesModel\Trade.cs" />
     <Compile Include="Enums\TradeAction.cs" />
     <Compile Include="TradesModel\Trades.cs" />
