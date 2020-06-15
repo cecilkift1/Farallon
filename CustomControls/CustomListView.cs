@@ -139,7 +139,7 @@ namespace Farallon.CustomControls
         private void ApplyLayout()
         {
             var columnsCountWithMinimumWidth = ColumnsCountWithMinimumWidth();
-            var defaultColumnWidth = (ClientRectangle.Width - ColumnsMinimumWidth()) / 
+            var defaultColumnWidth = (ClientRectangle.Width - 11 - ColumnsMinimumWidth()) /
                                      Math.Max(Columns.Count - columnsCountWithMinimumWidth, 1);
 
             foreach (CustomColumnHeader column in Columns)
