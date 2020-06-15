@@ -11,7 +11,7 @@ namespace Farallon
     public class ProfitAndLoss : Table
     {
         private Trades _trades;
-        private readonly IList<Equity> _equities = new List<Equity>();
+        private readonly Equities _equities = new Equities();
 
         internal Trades Trades
         {
@@ -69,7 +69,7 @@ namespace Farallon
         {
             var rows = new List<IRow>();
 
-            foreach (var equity in _equities)
+            foreach (var equity in _equities.Items)
             {
                 var row = new Row();
 
@@ -86,7 +86,26 @@ namespace Farallon
                 rows.Add(row);
             }
 
+            rows.Add(TotalsRow());
+
             return rows;
+        }
+
+        private IRow TotalsRow()
+        {
+            var row = new Row();
+
+            row.Values.Add("Total");
+            row.Values.Add(string.Empty); 
+            row.Values.Add(string.Format(Columns().ValueStringFormat(ProfitAndLossColumnNames.ColumnNameCost), _equities.TotalCost));
+            row.Values.Add(string.Format(Columns().ValueStringFormat(ProfitAndLossColumnNames.ColumnNameQuantity), _equities.TotalQuantity));
+            row.Values.Add(string.Empty); // current price
+            row.Values.Add(string.Format(Columns().ValueStringFormat(ProfitAndLossColumnNames.ColumnNameMarketValue), _equities.TotalMarketValue)); // market value
+            row.Values.Add(string.Empty); // previous close
+            row.Values.Add(string.Format(Columns().ValueStringFormat(ProfitAndLossColumnNames.ColumnNameDailyPAndL), _equities.TotalDailyPAndL)); // daily P&l
+            row.Values.Add(string.Format(Columns().ValueStringFormat(ProfitAndLossColumnNames.ColumnNameInceptionPAndL), _equities.TotalInceptionPAndL)); // inception P&l
+
+            return row;
         }
     }
 }

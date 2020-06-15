@@ -38,12 +38,12 @@ namespace Farallon
             this.listViewProfitAndLoss = new Farallon.CustomControls.CustomListView();
             this.labelProfitAndLoss = new System.Windows.Forms.Label();
             this.panelBottom = new System.Windows.Forms.Panel();
+            this.labelQuoteData = new System.Windows.Forms.Label();
+            this.labelQuoteTicker = new System.Windows.Forms.Label();
+            this.textBoxQuote = new System.Windows.Forms.TextBox();
             this.buttonQuote = new System.Windows.Forms.Button();
             this.panelTrades = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.textBoxQuote = new System.Windows.Forms.TextBox();
-            this.labelQuoteTicker = new System.Windows.Forms.Label();
-            this.labelQuoteData = new System.Windows.Forms.Label();
             this.panelBottom.SuspendLayout();
             this.panelTrades.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -56,7 +56,7 @@ namespace Farallon
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listViewPortfolio.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.listViewPortfolio.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listViewPortfolio.Font = new System.Drawing.Font("Gadugi", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listViewPortfolio.FullRowSelect = true;
             this.listViewPortfolio.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listViewPortfolio.HideSelection = false;
@@ -70,7 +70,7 @@ namespace Farallon
             this.listViewPortfolio.Portfolio = null;
             this.listViewPortfolio.PortfolioViewType = Farallon.Enums.PortfolioViewType.Trades;
             this.listViewPortfolio.ShowGroups = false;
-            this.listViewPortfolio.Size = new System.Drawing.Size(962, 285);
+            this.listViewPortfolio.Size = new System.Drawing.Size(962, 175);
             this.listViewPortfolio.SmallImageList = this.imageListTrades;
             this.listViewPortfolio.TabIndex = 1;
             this.listViewPortfolio.UseCompatibleStateImageBehavior = false;
@@ -85,12 +85,12 @@ namespace Farallon
             // labelTrades
             // 
             this.labelTrades.AutoSize = true;
-            this.labelTrades.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTrades.Font = new System.Drawing.Font("Gadugi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTrades.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(53)))), ((int)(((byte)(117)))));
-            this.labelTrades.Location = new System.Drawing.Point(6, 10);
+            this.labelTrades.Location = new System.Drawing.Point(6, 8);
             this.labelTrades.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelTrades.Name = "labelTrades";
-            this.labelTrades.Size = new System.Drawing.Size(52, 16);
+            this.labelTrades.Size = new System.Drawing.Size(55, 19);
             this.labelTrades.TabIndex = 0;
             this.labelTrades.Text = "Trades";
             // 
@@ -101,7 +101,7 @@ namespace Farallon
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listViewProfitAndLoss.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.listViewProfitAndLoss.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listViewProfitAndLoss.Font = new System.Drawing.Font("Gadugi", 9.75F);
             this.listViewProfitAndLoss.FullRowSelect = true;
             this.listViewProfitAndLoss.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listViewProfitAndLoss.HideSelection = false;
@@ -115,7 +115,7 @@ namespace Farallon
             this.listViewProfitAndLoss.Portfolio = null;
             this.listViewProfitAndLoss.PortfolioViewType = Farallon.Enums.PortfolioViewType.ProfitAndLoss;
             this.listViewProfitAndLoss.ShowGroups = false;
-            this.listViewProfitAndLoss.Size = new System.Drawing.Size(962, 252);
+            this.listViewProfitAndLoss.Size = new System.Drawing.Size(962, 162);
             this.listViewProfitAndLoss.SmallImageList = this.imageListTrades;
             this.listViewProfitAndLoss.TabIndex = 1;
             this.listViewProfitAndLoss.UseCompatibleStateImageBehavior = false;
@@ -124,12 +124,12 @@ namespace Farallon
             // labelProfitAndLoss
             // 
             this.labelProfitAndLoss.AutoSize = true;
-            this.labelProfitAndLoss.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelProfitAndLoss.Font = new System.Drawing.Font("Gadugi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelProfitAndLoss.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(53)))), ((int)(((byte)(117)))));
-            this.labelProfitAndLoss.Location = new System.Drawing.Point(8, 11);
+            this.labelProfitAndLoss.Location = new System.Drawing.Point(8, 9);
             this.labelProfitAndLoss.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelProfitAndLoss.Name = "labelProfitAndLoss";
-            this.labelProfitAndLoss.Size = new System.Drawing.Size(103, 16);
+            this.labelProfitAndLoss.Size = new System.Drawing.Size(112, 19);
             this.labelProfitAndLoss.TabIndex = 0;
             this.labelProfitAndLoss.Text = "Profit and Loss";
             // 
@@ -140,10 +140,43 @@ namespace Farallon
             this.panelBottom.Controls.Add(this.textBoxQuote);
             this.panelBottom.Controls.Add(this.buttonQuote);
             this.panelBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelBottom.Location = new System.Drawing.Point(0, 706);
+            this.panelBottom.Location = new System.Drawing.Point(0, 506);
             this.panelBottom.Name = "panelBottom";
             this.panelBottom.Size = new System.Drawing.Size(984, 55);
             this.panelBottom.TabIndex = 2;
+            // 
+            // labelQuoteData
+            // 
+            this.labelQuoteData.AutoSize = true;
+            this.labelQuoteData.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelQuoteData.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(53)))), ((int)(((byte)(117)))));
+            this.labelQuoteData.Location = new System.Drawing.Point(219, 26);
+            this.labelQuoteData.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelQuoteData.Name = "labelQuoteData";
+            this.labelQuoteData.Size = new System.Drawing.Size(51, 16);
+            this.labelQuoteData.TabIndex = 3;
+            this.labelQuoteData.Text = "Quote:";
+            // 
+            // labelQuoteTicker
+            // 
+            this.labelQuoteTicker.AutoSize = true;
+            this.labelQuoteTicker.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelQuoteTicker.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(53)))), ((int)(((byte)(117)))));
+            this.labelQuoteTicker.Location = new System.Drawing.Point(219, 10);
+            this.labelQuoteTicker.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelQuoteTicker.Name = "labelQuoteTicker";
+            this.labelQuoteTicker.Size = new System.Drawing.Size(50, 16);
+            this.labelQuoteTicker.TabIndex = 2;
+            this.labelQuoteTicker.Text = "Ticker:";
+            // 
+            // textBoxQuote
+            // 
+            this.textBoxQuote.Font = new System.Drawing.Font("Arial", 10F);
+            this.textBoxQuote.Location = new System.Drawing.Point(11, 15);
+            this.textBoxQuote.Name = "textBoxQuote";
+            this.textBoxQuote.Size = new System.Drawing.Size(100, 23);
+            this.textBoxQuote.TabIndex = 0;
+            this.textBoxQuote.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxQuote_KeyDown);
             // 
             // buttonQuote
             // 
@@ -163,7 +196,7 @@ namespace Farallon
             this.panelTrades.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTrades.Location = new System.Drawing.Point(0, 64);
             this.panelTrades.Name = "panelTrades";
-            this.panelTrades.Size = new System.Drawing.Size(984, 331);
+            this.panelTrades.Size = new System.Drawing.Size(984, 221);
             this.panelTrades.TabIndex = 0;
             // 
             // panel2
@@ -171,57 +204,24 @@ namespace Farallon
             this.panel2.Controls.Add(this.labelProfitAndLoss);
             this.panel2.Controls.Add(this.listViewProfitAndLoss);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 395);
+            this.panel2.Location = new System.Drawing.Point(0, 285);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(984, 311);
+            this.panel2.Size = new System.Drawing.Size(984, 221);
             this.panel2.TabIndex = 1;
-            // 
-            // textBoxQuote
-            // 
-            this.textBoxQuote.Font = new System.Drawing.Font("Arial", 10F);
-            this.textBoxQuote.Location = new System.Drawing.Point(11, 15);
-            this.textBoxQuote.Name = "textBoxQuote";
-            this.textBoxQuote.Size = new System.Drawing.Size(100, 23);
-            this.textBoxQuote.TabIndex = 0;
-            this.textBoxQuote.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxQuote_KeyDown);
-            // 
-            // labelQuoteTicker
-            // 
-            this.labelQuoteTicker.AutoSize = true;
-            this.labelQuoteTicker.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelQuoteTicker.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(53)))), ((int)(((byte)(117)))));
-            this.labelQuoteTicker.Location = new System.Drawing.Point(219, 10);
-            this.labelQuoteTicker.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.labelQuoteTicker.Name = "labelQuoteTicker";
-            this.labelQuoteTicker.Size = new System.Drawing.Size(50, 16);
-            this.labelQuoteTicker.TabIndex = 2;
-            this.labelQuoteTicker.Text = "Ticker:";
-            // 
-            // labelQuoteData
-            // 
-            this.labelQuoteData.AutoSize = true;
-            this.labelQuoteData.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelQuoteData.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(53)))), ((int)(((byte)(117)))));
-            this.labelQuoteData.Location = new System.Drawing.Point(219, 26);
-            this.labelQuoteData.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.labelQuoteData.Name = "labelQuoteData";
-            this.labelQuoteData.Size = new System.Drawing.Size(51, 16);
-            this.labelQuoteData.TabIndex = 3;
-            this.labelQuoteData.Text = "Quote:";
             // 
             // FarallonMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(984, 761);
+            this.ClientSize = new System.Drawing.Size(984, 561);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panelTrades);
             this.Controls.Add(this.panelBottom);
-            this.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Gadugi", 9.75F);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.MinimumSize = new System.Drawing.Size(1000, 800);
+            this.MinimumSize = new System.Drawing.Size(1000, 600);
             this.Name = "FarallonMainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Cecil Kift - Farallon Portfolio Demo";

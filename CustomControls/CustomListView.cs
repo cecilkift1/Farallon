@@ -107,17 +107,23 @@ namespace Farallon.CustomControls
             }
         }
 
-        private static void PaintItemBackground(ListViewItemStates states, Graphics graphics, Rectangle bounds)
+        private void PaintItemBackground(DrawListViewItemEventArgs args)
         {
             var backgroundBrush = Brushes.Gainsboro;
-            if (states == ListViewItemStates.Selected ||
-                states == ListViewItemStates.Focused ||
-                states == ListViewItemStates.Hot)
+            if (args.State == ListViewItemStates.Selected ||
+                args.State == ListViewItemStates.Focused ||
+                args.State == ListViewItemStates.Hot)
             {
                 backgroundBrush = Brushes.White;
             }
 
-            graphics.FillRectangle(backgroundBrush, bounds);
+            if (args.ItemIndex == Items.Count - 1 && 
+                PortfolioViewType == PortfolioViewType.ProfitAndLoss)
+            {
+                backgroundBrush = Brushes.Gainsboro;
+            }
+
+            args.Graphics.FillRectangle(backgroundBrush, args.Bounds);
         }
 
         private int ColumnsCountWithMinimumWidth()
@@ -157,8 +163,7 @@ namespace Farallon.CustomControls
             // Fill the background
             e.Graphics.FillRectangle(Brushes.Gainsboro, e.Bounds);
             // Draw a top line
-            using var pen = new Pen(Color.RoyalBlue, 3);
-            e.Graphics.DrawLine(pen, e.Bounds.Left, e.Bounds.Top, e.Bounds.Right, e.Bounds.Top);
+            DrawTopBorderLine(e.Graphics, e.Bounds, 3);
             // Draw a bottom line
             e.Graphics.DrawLine(Pens.DarkGray, e.Bounds.Left, e.Bounds.Bottom - 1, e.Bounds.Right, e.Bounds.Bottom - 1);
             // Draw the text
@@ -166,23 +171,54 @@ namespace Farallon.CustomControls
             using var headerFont = new Font(Font.Name, Font.Size, FontStyle.Bold);
             var textBounds = e.Bounds;
             textBounds.Inflate(e.ColumnIndex == 0 ? 0 : -5, 0);
+            e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
             e.Graphics.DrawString(e.Header.Text, headerFont, new SolidBrush(ForeColor), textBounds, stringFormat);
+        }
+
+        private void DrawTopBorderLine(Graphics graphics, Rectangle bounds, int penWidth)
+        {
+            using var pen = new Pen(Color.RoyalBlue, penWidth);
+            graphics.DrawLine(pen, bounds.Left, bounds.Top, bounds.Right, bounds.Top);
         }
 
         protected override void OnDrawItem(DrawListViewItemEventArgs e)
         {
-            PaintItemBackground(e.State, e.Graphics, e.Bounds);
+            PaintItemBackground(e);
 
-            using var stringFormat = StringFormat(HorizontalAlignment.Left);
-            using var textBrush = new SolidBrush(ForeColor);
-            e.Graphics.DrawString(e.Item.Text, Font, textBrush, e.Bounds, stringFormat);
+            if (e.ItemIndex == Items.Count - 1 &&
+                PortfolioViewType == PortfolioViewType.ProfitAndLoss)
+            {
+                DrawTopBorderLine(e.Graphics, e.Bounds, 2);
+            }
+
+            DrawItemText(e.ItemIndex, e.Graphics, e.Item.Text, e.Bounds, HorizontalAlignment.Left);
+        }
+
+        private Font ItemTextFont(int itemIndex)
+        {
+            var fontStyle = Font.Style;
+
+            if (itemIndex == Items.Count - 1 &&
+                PortfolioViewType == PortfolioViewType.ProfitAndLoss)
+            {
+                fontStyle = FontStyle.Bold;
+            }
+
+            return new Font(Font, fontStyle);
+        }
+
+        private void DrawItemText(int index, Graphics graphics, string text, Rectangle bounds, HorizontalAlignment textAlign)
+        {
+            using var stringFormat = StringFormat(textAlign);
+            using var font = ItemTextFont(index);
+            graphics.SmoothingMode = SmoothingMode.HighQuality;
+            graphics.InterpolationMode = InterpolationMode.HighQualityBilinear;
+            graphics.DrawString(text, font, Brushes.Black, bounds, stringFormat);
         }
 
         protected override void OnDrawSubItem(DrawListViewSubItemEventArgs e)
         {
-            using var stringFormat = StringFormat(e.Header.TextAlign);
-            e.Graphics.DrawString(e.SubItem.Text, Font, Brushes.Black, e.Bounds, stringFormat);
-
+            DrawItemText(e.ItemIndex, e.Graphics, e.SubItem.Text, e.Bounds, e.Header.TextAlign);
             // Draw a bottom line
             e.Graphics.DrawLine(Pens.LightGray, e.Bounds.Left, e.Bounds.Bottom - 1, e.Bounds.Right, e.Bounds.Bottom - 1);
         }
